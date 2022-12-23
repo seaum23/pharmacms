@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\AuthController;
+use App\Models\User;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,10 +15,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
+Route::get('/dashboard', function () {
     return view('welcome');
 })->middleware('auth:sanctum');
 
-Route::get('login', function () {
+Route::get('/login', function () {
+    // User::create([
+    //     'phone' => "0170000000",
+    //     'password' => bcrypt("12345")
+    // ]);
     return view('login');
-});
+})->name('login');
+
+Route::post('login', [AuthController::class, 'login']);
+Route::post('logout', [AuthController::class, 'logout']);
