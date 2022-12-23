@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\Medicine;
+use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -13,15 +15,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('medicine_selling_price_updates', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->nullable();
-            $table->string('img')->nullable();
-            $table->string('phone')->unique();
-            $table->string('email')->unique()->nullable();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->rememberToken();
+            $table->foreignIdFor(Medicine::class);
+            $table->integer('old_price');
+            $table->integer('new_price');
+            $table->string('reason');
+            $table->foreignIdFor(User::class);
             $table->timestamps();
         });
     }
@@ -33,6 +33,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('medicine_selling_price_updates');
     }
 };
