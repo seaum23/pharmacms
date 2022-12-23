@@ -12,7 +12,7 @@ class AuthController extends Controller
         if (Auth::attempt(['phone' => $request->phone, 'password' => $request->password], $request->remember_me)) {
             $request->session()->regenerate();
  
-            return redirect()->intended('dashboard');
+            return;
         }
 
         return response()->json(['error' => 'Credential does not match'], 401);

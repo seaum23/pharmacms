@@ -13,15 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('supplier_purchase_histories', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->nullable();
-            $table->string('img')->nullable();
-            $table->string('phone')->unique();
-            $table->string('email')->unique()->nullable();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->rememberToken();
+            $table->string('batch_id')->unique();
+            $table->integer('total_price');
+            $table->integer('paid_price');
             $table->timestamps();
         });
     }
@@ -33,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('supplier_purchase_histories');
     }
 };
