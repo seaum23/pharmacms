@@ -10,4 +10,9 @@ class Customer extends Model
     use HasFactory;
 
     protected $fillable = ['phone','name','img','opening_balance','current_balance'];
+
+    public function purchaseHistories()
+    {
+        return $this->hasMany(CustomerPurchaseHistory::class);
+    }    
 }

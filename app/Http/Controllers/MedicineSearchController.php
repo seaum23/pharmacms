@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Exception;
-use App\Models\Supplier;
+use App\Models\Medicine;
 use Illuminate\Http\Request;
-use App\Http\Resources\SupplierResource;
+use App\Http\Resources\MedicineResource;
 
-class SupplierController extends Controller
+class MedicineSearchController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,7 +15,7 @@ class SupplierController extends Controller
      */
     public function index()
     {
-        return SupplierResource::collection(Supplier::all());
+        //
     }
 
     /**
@@ -37,26 +36,7 @@ class SupplierController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'phone' => 'required'
-        ]);
-        
-        try{
-            return new SupplierResource(Supplier::create([
-                'phone' => $request->phone,
-                'name' => $request->name,
-                'email' => $request->email,
-                'address' => $request->address,
-                'opening_balance' => $request->opening_balance ?? 0,
-                'current_balance' => $request->opening_balance ?? 0,
-            ]));
-        }catch(Exception $e){
-            if($e->getCode() == '23000'){
-                return response(['errors' => 'Phone already exists!'], 500);
-            }else{
-                return response($e->getMessage(), 500);
-            }
-        }
+        //
     }
 
     /**
@@ -65,9 +45,9 @@ class SupplierController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($supplier)
+    public function show($name)
     {
-        return new SupplierResource(Supplier::findOrFail($supplier));
+        return MedicineResource::collection(Medicine::where('name', 'like', "%$name%")->get());
     }
 
     /**

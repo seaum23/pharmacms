@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class CustomerResource extends JsonResource
+class MedicineResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,12 +16,11 @@ class CustomerResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'phone' => $this->phone,
             'name' => $this->name,
-            'img' => $this->img,
-            'opening_balance' => $this->opening_balance,
-            'current_balance' => $this->current_balance,
-            'purchase_histories' => CustomerPurchaseHistoryResource::collection($this->whenLoaded('purchaseHistories')),
+            'measurement' => $this->measurement,
+            'unit' => $this->unit,
+            'current_stock' => $this->current_stock,
+            'selling_price' => $this->selling_price / 100,
         ];
     }
 }

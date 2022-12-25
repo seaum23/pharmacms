@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('suppliers', function (Blueprint $table) {
             $table->id();
-            $table->string('phone')->index();
+            $table->string('phone')->unique();
             $table->string('name')->nullable();
             $table->string('email')->nullable();
             $table->string('address')->nullable();

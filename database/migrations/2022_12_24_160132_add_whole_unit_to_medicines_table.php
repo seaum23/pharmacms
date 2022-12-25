@@ -13,13 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('transaction_histories', function (Blueprint $table) {
-            $table->id();
-            $table->string('type');
-            $table->bigInteger('transaction_type_id');
-            $table->integer('net_amount');
-            $table->integer('paid_amount');
-            $table->timestamps();
+        Schema::table('medicines', function (Blueprint $table) {
+            $table->integer('unit_per_segment')->nullable();
         });
     }
 
@@ -30,6 +25,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('transaction_histories');
+        Schema::table('medicines', function (Blueprint $table) {
+            $table->dropColumn('unit_per_segment');
+        });
     }
 };

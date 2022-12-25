@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('medicines', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->integer('measurement');
+            $table->string('measurement', 100);
             $table->string('unit');
             $table->integer('selling_price');
             $table->timestamps();

@@ -1,11 +1,15 @@
 <?php
 
-use App\Http\Controllers\AuthController;
-use App\Http\Controllers\CustomerController;
-use App\Http\Controllers\PasswordController;
-use App\Http\Controllers\UserController;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\AddStockController;
+use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\MedicineController;
+use App\Http\Controllers\MedicineSearchController;
+use App\Http\Controllers\PasswordController;
+use App\Http\Controllers\SupplierController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,18 +36,40 @@ Route::get('/login', function () {
 
 Route::post('login', [AuthController::class, 'login']);
 
-// Route::middleware(['auth:sanctum'])->group(function () {
+Route::middleware(['auth:sanctum'])->group(function () {
 
     Route::post('logout', [AuthController::class, 'logout']);
 
-    Route::get('staff', [UserController::class, 'index']);
-    Route::get('staff/{user}', [UserController::class, 'show']);
-    Route::post('staff', [UserController::class, 'store']);
-    Route::patch('staff/{user}', [UserController::class, 'update']);
+
+    Route::prefix('staff')->group(function (){
+        Route::get('/', [UserController::class, 'index']);
+        Route::get('/{user}', [UserController::class, 'show']);
+        Route::post('/', [UserController::class, 'store']);
+        Route::patch('/{user}', [UserController::class, 'update']);
+    });
 
     Route::patch('password/{user}', [PasswordController::class, 'update']);
 
-    Route::get('customer', [CustomerController::class, 'index']);
-    Route::post('customer', [CustomerController::class, 'store']);
+    Route::prefix('customer')->group(function (){
+        Route::get('/', [CustomerController::class, 'index']);
+        Route::get('/{customer}', [CustomerController::class, 'show']);
+        Route::post('/', [CustomerController::class, 'store']);
+    });
 
-// });
+    Route::prefix('supplier')->group(function (){
+        Route::get('/', [SupplierController::class, 'index']);
+        Route::get('/{supplier}', [SupplierController::class, 'show']);
+        Route::post('/', [SupplierController::class, 'store']);
+    });
+
+
+    Route::prefix('medicine')->group(function (){
+        Route::get('/', [MedicineController::class, 'index']);
+        Route::post('/', [MedicineController::class, 'store']);
+        Route::get('/{medicine}', [MedicineController::class, 'show']);
+        Route::get('/search/{name}', [MedicineSearchController::class, 'show']);
+    });
+
+    Route::post('add-stock', [AddStockController::class, 'store']);
+
+});

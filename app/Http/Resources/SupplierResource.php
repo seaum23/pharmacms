@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class CustomerResource extends JsonResource
+class SupplierResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -18,10 +18,10 @@ class CustomerResource extends JsonResource
             'id' => $this->id,
             'phone' => $this->phone,
             'name' => $this->name,
-            'img' => $this->img,
+            'email' => $this->email,
+            'address' => $this->address,
             'opening_balance' => $this->opening_balance,
             'current_balance' => $this->current_balance,
-            'purchase_histories' => CustomerPurchaseHistoryResource::collection($this->whenLoaded('purchaseHistories')),
         ];
     }
 }

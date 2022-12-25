@@ -24,7 +24,7 @@
             </div>
             <button class="btn btn-submit">Submit</button>
         </form> --}}
-        <div class="row">
+        {{-- <div class="row">
             <form action="" id="registration_submit">
                 <input type="hidden" name="_method" value="patch">
                 <input class="form-control" type="text" name="user" id="user" placeholder="User">
@@ -37,7 +37,7 @@
             
                 <button class="btn btn-submit">Submit</button>
             </form>
-        </div>
+        </div> --}}
 
         {{-- <div class="row">
             <form action="" id="customer_submit">
@@ -47,9 +47,20 @@
                 <button class="btn btn-submit">Submit</button>
             </form>
         </div> --}}
-        <form action="" id="logout">
+
+        <div class="row">
+            <form action="" id="add_medicine">
+                <input class="form-control" type="text" name="name" id="name" placeholder="Name">
+                <input class="form-control" type="text" name="measurement" id="measurement" placeholder="Measurement">
+                <input class="form-control" type="text" name="unit" id="unit" placeholder="Unit">
+                <input class="form-control" type="text" name="selling_price" id="selling_price" placeholder="Selling Price">
+                <input class="form-control" type="text" name="unit_per_segment" id="unit_per_segment" placeholder="Unit Per Segment">
+                <button class="btn btn-submit">Submit</button>
+            </form>
+        </div>
+        {{-- <form action="" id="logout">
             <button class="btn">Logout</button>
-        </form>
+        </form> --}}
     </div>
 </body>
 

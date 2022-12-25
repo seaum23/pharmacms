@@ -20,20 +20,20 @@ import './bootstrap';
 //     });
 // });
 
-let registration = document.querySelector("#registration_submit");
+// let registration = document.querySelector("#registration_submit");
 
-registration.addEventListener("submit", (e) => {
-    e.preventDefault();
-    let user = document.querySelector("#user").value;
-    let formData = new FormData(registration);
-    axios.post(`/staff/${user}`, formData)
-    .then(function (response) {
-        console.log(response);
-    })
-    .catch(function (error) {
-        console.log(error);
-    });
-});
+// registration.addEventListener("submit", (e) => {
+//     e.preventDefault();
+//     let user = document.querySelector("#user").value;
+//     let formData = new FormData(registration);
+//     axios.post(`/staff/${user}`, formData)
+//     .then(function (response) {
+//         console.log(response);
+//     })
+//     .catch(function (error) {
+//         console.log(error);
+//     });
+// });
 
 // let customer = document.querySelector("#customer_submit");
 
@@ -63,6 +63,20 @@ registration.addEventListener("submit", (e) => {
 //         console.log(error);
 //     });
 // });
+
+let medicine = document.querySelector("#add_medicine");
+
+medicine.addEventListener("submit", (e) => {
+    e.preventDefault();
+    let formData = new FormData(medicine);
+    axios.post('/medicine', formData)
+    .then(function (response) {
+        console.log(response);
+    })
+    .catch(function (error) {
+        console.log(error);
+    });
+});
 
 
 let logout = document.querySelector("#logout");

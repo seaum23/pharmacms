@@ -8,4 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class MedicineStock extends Model
 {
     use HasFactory;
+
+    protected $filable = ['medicine_id', 'amount'];
 }

@@ -1,6 +1,7 @@
 <?php
 
-use App\Models\Customer;
+use App\Models\CustomerPurchaseHistory;
+use App\Models\Medicine;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -16,9 +17,10 @@ return new class extends Migration
     {
         Schema::create('customer_purchase_medicines', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Customer::class);
-            $table->integer('total_price');
-            $table->integer('total_paid');
+            $table->foreignIdFor(CustomerPurchaseHistory::class);
+            $table->foreignIdFor(Medicine::class);
+            $table->integer('price_per_unit');
+            $table->integer('amount');
             $table->timestamps();
         });
     }

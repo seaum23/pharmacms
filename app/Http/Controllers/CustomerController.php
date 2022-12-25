@@ -16,7 +16,7 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        //
+        return CustomerResource::collection(Customer::paginate());
     }
 
     /**
@@ -63,9 +63,10 @@ class CustomerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($customer)
     {
-        //
+        return new CustomerResource(Customer::findOrFail($customer));
+        // return new CustomerResource(Customer::with('purchaseHistories.medicines')->findOrFail($customer));
     }
 
     /**
