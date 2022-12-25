@@ -16,13 +16,13 @@ class SupplierPurchaseMedicine extends Model
      * 
      * @return \Illuminate\Database\Eloquent\Casts\Attribute
      */
-    // protected function price_per_unit(): Attribute
-    // {
-    //     return Attribute::make(
-    //         get: fn ($value) => $value / 100,
-    //         set: fn ($value) => $value * 100,
-    //     );
-    // }
+    protected function pricePerUnit(): Attribute
+    {
+        return Attribute::make(
+            get: fn ($value) => $value / 100,
+            set: fn ($value) => $value * 100,
+        );
+    }
 
     public function medicine()
     {

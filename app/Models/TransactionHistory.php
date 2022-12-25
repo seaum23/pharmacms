@@ -16,23 +16,23 @@ class TransactionHistory extends Model
      * 
      * @return \Illuminate\Database\Eloquent\Casts\Attribute
      */
-    // protected function net_amount(): Attribute
-    // {
-    //     return Attribute::make(
-    //         get: fn ($value) => $value / 100,
-    //         set: fn ($value) => $value * 100,
-    //     );
-    // }
+    protected function netAmount(): Attribute
+    {
+        return Attribute::make(
+            get: fn ($value) => $value / 100,
+            set: fn ($value) => $value * 100,
+        );
+    }
 
     /**
      * 
      * @return \Illuminate\Database\Eloquent\Casts\Attribute
      */
-    // protected function paid_amount(): Attribute
-    // {
-    //     return Attribute::make(
-    //         get: fn ($value) => $value / 100,
-    //         set: fn ($value) => $value * 100,
-    //     );
-    // }
+    protected function paidAmount(): Attribute
+    {
+        return Attribute::make(
+            get: fn ($value) => $value / 100,
+            set: fn ($value) => $value * 100,
+        );
+    }
 }

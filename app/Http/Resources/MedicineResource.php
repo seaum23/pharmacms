@@ -20,7 +20,7 @@ class MedicineResource extends JsonResource
             'measurement' => $this->measurement,
             'unit' => $this->unit,
             'current_stock' => $this->current_stock,
-            'selling_price' => $this->selling_price / 100,
+            'selling_price' => $this->selling_price,
         ];
     }
 }

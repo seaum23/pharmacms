@@ -16,4 +16,12 @@ class PasswordController extends Controller
         $user->password = bcrypt($request->password);
         $user->save();
     }
+
+    public function update_self(Request $request)
+    {
+        $request->validate([
+            'password' => 'required|confirmed'
+        ]);
+        auth()->user()->update(['password' => bcrypt($request->password)]);
+    }
 }

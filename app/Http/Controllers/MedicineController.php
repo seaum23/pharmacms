@@ -48,7 +48,7 @@ class MedicineController extends Controller
             'measurement' => $request->measurement,
             'unit' => $request->unit,
         ], [
-            'selling_price' => $request->selling_price * 100
+            'selling_price' => $request->selling_price
         ]));
     }
 

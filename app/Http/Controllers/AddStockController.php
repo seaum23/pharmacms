@@ -51,15 +51,15 @@ class AddStockController extends Controller
             $supplier_purchase_history = SupplierPurchaseHistory::create([
                 'supplier_id' => $request->supplier_id,
                 'batch_id' => now(),
-                'total_price' => $total_price * 100,
-                'paid_price' => $request->total_paid * 100,
+                'total_price' => $total_price,
+                'paid_price' => $request->total_paid,
             ]);
 
             $purchase_medicines = [];
             foreach($request->total_units as $idx => $units){
                 $purchase_medicines[] = [
                     'medicine_id' => $request->medicine_id[$idx],
-                    'price_per_unit' => $request->price_per_unit[$idx] * 100,
+                    'price_per_unit' => $request->price_per_unit[$idx],
                     'expiry' => $request->expiry[$idx],
                     'total_units' => $units,
                     'supplier_purchase_history_id' => $supplier_purchase_history->id,
@@ -73,8 +73,8 @@ class AddStockController extends Controller
             TransactionHistory::create([
                 'type' => Supplier::class,
                 'transaction_type_id' => $supplier_purchase_history->id,
-                'net_amount' => $total_price * 100,
-                'paid_amount' => $request->total_paid * 100,
+                'net_amount' => $total_price,
+                'paid_amount' => $request->total_paid,
             ]);
 
             if($total_price != $request->total_paid){

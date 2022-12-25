@@ -16,11 +16,11 @@ class Medicine extends Model
      * 
      * @return \Illuminate\Database\Eloquent\Casts\Attribute
      */
-    // protected function selling_price(): Attribute
-    // {
-    //     return Attribute::make(
-    //         get: fn ($value) => $value / 100,
-    //         set: fn ($value) => $value * 100,
-    //     );
-    // }
+    protected function sellingPrice(): Attribute
+    {
+        return Attribute::make(
+            get: fn ($value) => $value / 100,
+            set: fn ($value) => $value * 100,
+        );
+    }
 }

@@ -16,23 +16,23 @@ class Supplier extends Model
      * 
      * @return \Illuminate\Database\Eloquent\Casts\Attribute
      */
-    // protected function opening_balance(): Attribute
-    // {
-    //     return Attribute::make(
-    //         get: fn ($value) => $value / 100,
-    //         set: fn ($value) => $value * 100,
-    //     );
-    // }
+    protected function openingBalance(): Attribute
+    {
+        return Attribute::make(
+            get: fn ($value) => $value / 100,
+            set: fn ($value) => $value * 100,
+        );
+    }
 
     /**
      * 
      * @return \Illuminate\Database\Eloquent\Casts\Attribute
      */
-    // protected function current_balance(): Attribute
-    // {
-    //     return Attribute::make(
-    //         get: fn ($value) => $value / 100,
-    //         set: fn ($value) => $value * 100,
-    //     );
-    // }
+    protected function currentBalance(): Attribute
+    {
+        return Attribute::make(
+            get: fn ($value) => $value / 100,
+            set: fn ($value) => $value * 100,
+        );
+    }
 }
