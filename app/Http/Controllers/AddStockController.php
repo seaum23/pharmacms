@@ -43,7 +43,7 @@ class AddStockController extends Controller
      */
     public function store(AddStockRequest $request)
     {
-        DB::transaction(function () use ($request) {
+        $history = DB::transaction(function () use ($request) {
             $total_price = 0;
             foreach($request->total_units as $idx => $units){
                 $total_price += $units * $request->price_per_unit[$idx];
@@ -81,9 +81,9 @@ class AddStockController extends Controller
                 $updated_price = ($total_price - $request->total_paid) * 100;
                 Supplier::where('id', $request->supplier_id)->update(['current_balance' => DB::raw("current_balance + $updated_price")]);
             }
-
+            return $supplier_purchase_history->id;
         });
-        return response([$request->total_units,$request->price_per_unit]);
+        return response()->json(SupplierPurchaseHistory::with('medicines.medicine')->find($history));
     }
 
     /**
