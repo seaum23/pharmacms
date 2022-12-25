@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AddStockController;
+use App\Http\Controllers\AuthUserController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\MedicineController;
 use App\Http\Controllers\MedicineSearchController;
@@ -49,6 +50,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     });
 
     Route::patch('password/{user}', [PasswordController::class, 'update']);
+    Route::get('auth-user', [AuthUserController::class, 'index']);
     // Route::patch('user', [PasswordController::class, 'update_self']);
     // Route::patch('password', [PasswordController::class, 'update_self']);
 
