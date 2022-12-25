@@ -49,7 +49,7 @@ class MedicineController extends Controller
             'unit' => $request->unit,
         ], [
             'selling_price' => $request->selling_price,
-            'current_stock' => $request->old_stock,
+            'current_stock' => $request->old_stock ?? 0,
         ]));
     }
 
