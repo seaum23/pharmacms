@@ -23,4 +23,9 @@ class SupplierPurchaseMedicine extends Model
     //         set: fn ($value) => $value * 100,
     //     );
     // }
+
+    public function medicine()
+    {
+        return $this->belongsTo(Medicine::class);
+    }
 }

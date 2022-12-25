@@ -49,6 +49,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
     });
 
     Route::patch('password/{user}', [PasswordController::class, 'update']);
+    // Route::patch('user', [PasswordController::class, 'update_self']);
+    // Route::patch('password', [PasswordController::class, 'update_self']);
 
     Route::prefix('customer')->group(function (){
         Route::get('/', [CustomerController::class, 'index']);

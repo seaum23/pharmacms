@@ -45,8 +45,8 @@ class CustomerController extends Controller
             return new CustomerResource(Customer::create([
                 'phone' => $request->phone,
                 'name' => $request->name,
-                'opening_balance' => $request->opening_balance ?? 0,
-                'current_balance' => $request->opening_balance ?? 0,
+                'opening_balance' => $request->opening_balance ? $request->opening_balance * 100 : 0,
+                'current_balance' => $request->opening_balance ? $request->opening_balance * 100 : 0,
             ]));
         }catch(Exception $e){
             if($e->getCode() == '23000'){
