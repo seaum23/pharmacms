@@ -48,7 +48,8 @@ class MedicineController extends Controller
             'measurement' => $request->measurement,
             'unit' => $request->unit,
         ], [
-            'selling_price' => $request->selling_price
+            'selling_price' => $request->selling_price,
+            'current_stock' => $request->old_stock,
         ]));
     }
 
