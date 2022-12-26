@@ -30,13 +30,7 @@ class AuthController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function logout(Request $request)
-    {
-        Auth::logout();
-    
-        $request->session()->invalidate();
-    
-        $request->session()->regenerateToken();
-    
-        return redirect('/');
+    {    
+        return $request->user()->currentAccessToken()->delete();;
     }
 }
