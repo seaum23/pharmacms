@@ -43,7 +43,7 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function is_admin(): bool
+    public function user_is_admin(): bool
     {
         return $this->is_admin == '1';
     }
