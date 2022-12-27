@@ -59,7 +59,7 @@ class AddStockController extends Controller
             foreach($request->total_units as $idx => $units){
                 $purchase_medicines[] = [
                     'medicine_id' => $request->medicine_id[$idx],
-                    'price_per_unit' => $request->price_per_unit[$idx],
+                    'price_per_unit' => $request->price_per_unit[$idx] * 100,
                     'expiry' => $request->expiry[$idx],
                     'total_units' => $units,
                     'supplier_purchase_history_id' => $supplier_purchase_history->id,

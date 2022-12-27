@@ -41,6 +41,16 @@ class SellController extends Controller
     public function store(Request $request)
     {
         $data = DB::transaction(function () use ($request) {
+
+            $customer_id = null;
+            if ($request->customer_phone) {
+                $customer = Customer::firstOrCreate(
+                    ['phone' => $request->customer_phone],
+                    ['opening_balance' => 0, 'current_balance' => 0]
+                );
+                $customer_id = $customer->id;
+            }
+
             $sold_medicines = Medicine::whereIn('id', $request->medicine_id)->get();
 
             $total = 0;
@@ -51,7 +61,7 @@ class SellController extends Controller
 
             $medicineSale = MedicineSale::create([
                 'user_id' => auth()->id(),
-                'customer_id' => $request->customer_id,
+                'customer_id' => $customer_id,
                 'total' => $total,
                 'total_paid' => $request->total_paid,
             ]);
@@ -80,8 +90,7 @@ class SellController extends Controller
 
             $prev_due = null;
             $returnData = ['history' => $medicineSale->id];
-            if($request->customer_id){
-                $customer = Customer::findOrFail($request->customer_id);
+            if($request->customer_phone){
                 $returnData['prev_due'] = $customer->current_balance;
                 if($total != $request->total_paid){
                     $updated_price = $total - $request->total_paid;
@@ -93,7 +102,7 @@ class SellController extends Controller
             return $returnData;
         });
         // return $data;
-        if($request->customer_id){
+        if($request->customer_phone){
             return response()->json(['invoice' => MedicineSale::with('saleDetails.medicine')->find($data['history']), 'prev_due' => $data['prev_due'], 'new_due' => $data['new_due']]);
         }else{
             return response()->json(['invoice' => MedicineSale::with('saleDetails.medicine')->find($data['history'])]);
