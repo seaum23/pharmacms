@@ -10,6 +10,7 @@ use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\MedicineController;
 use App\Http\Controllers\MedicineSearchController;
 use App\Http\Controllers\PasswordController;
+use App\Http\Controllers\ProfitController;
 use App\Http\Controllers\SellController;
 use App\Http\Controllers\SupplierController;
 
@@ -77,5 +78,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
     Route::post('add-stock', [AddStockController::class, 'store']);
     Route::post('sell', [SellController::class, 'store']);
+    Route::get('profit', [ProfitController::class, 'index']);
+
 
 });
