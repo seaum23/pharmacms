@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\SupplierPurchaseHistoryResource;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\AddStockRequest;
@@ -39,7 +40,7 @@ class AddStockController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \App\Http\Resources\SupplierPurchaseHistoryResource
      */
     public function store(AddStockRequest $request)
     {
@@ -71,10 +72,11 @@ class AddStockController extends Controller
             SupplierPurchaseMedicine::insert($purchase_medicines);
 
             TransactionHistory::create([
-                'type' => Supplier::class,
+                'type' => SupplierPurchaseHistory::class,
                 'transaction_type_id' => $supplier_purchase_history->id,
                 'net_amount' => $total_price,
                 'paid_amount' => $request->total_paid,
+                'note' => 'Buying medicine'
             ]);
 
             if($total_price != $request->total_paid){
@@ -83,7 +85,7 @@ class AddStockController extends Controller
             }
             return $supplier_purchase_history->id;
         });
-        return response()->json(SupplierPurchaseHistory::with('medicines.medicine')->find($history));
+        return new SupplierPurchaseHistoryResource(SupplierPurchaseHistory::with('medicines.medicine')->find($history));
     }
 
     /**
@@ -115,9 +117,12 @@ class AddStockController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, SupplierPurchaseHistory $purchase_history)
     {
-        //
+        $purchase_history->cleared = 1;
+        $purchase_history->save();
+
+        return response(['message' => 'Successfully updated!']);
     }
 
     /**

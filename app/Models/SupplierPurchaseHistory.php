@@ -40,4 +40,9 @@ class SupplierPurchaseHistory extends Model
     {
         return $this->hasMany(SupplierPurchaseMedicine::class);
     }
+
+    public function supplier()
+    {
+        return $this->belongsTo(Supplier::class);
+    }
 }

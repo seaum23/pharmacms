@@ -3,16 +3,18 @@
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\SellController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AddStockController;
 use App\Http\Controllers\AuthUserController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\MedicineController;
-use App\Http\Controllers\MedicineSearchController;
 use App\Http\Controllers\PasswordController;
-use App\Http\Controllers\ProfitController;
-use App\Http\Controllers\SellController;
 use App\Http\Controllers\SupplierController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DueAdjustController;
+use App\Http\Controllers\MedicineSearchController;
+use App\Http\Controllers\PurchaseHistoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -77,8 +79,16 @@ Route::middleware(['auth:sanctum'])->group(function () {
     });
 
     Route::post('add-stock', [AddStockController::class, 'store']);
+
+    Route::get('purchase-history', [PurchaseHistoryController::class, 'index']);
+    Route::patch('purchase-history/{purchase_history}', [AddStockController::class, 'update']);
+
     Route::post('sell', [SellController::class, 'store']);
-    Route::get('profit', [ProfitController::class, 'index']);
+    // Route::get('profit', [ProfitController::class, 'index']);
+    Route::get('dashboard', [DashboardController::class, 'index']);
+
+    Route::post('due-adjust/customer/{customer}', [DueAdjustController::class, 'customerDueAdjust']);
+    Route::post('due-adjust/supplier/{supplier}', [DueAdjustController::class, 'supplierDueAdjust']);
 
 
 });

@@ -10,7 +10,7 @@ class TransactionHistory extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['type','transaction_type_id','net_amount','paid_amount'];
+    protected $fillable = ['type','transaction_type_id','net_amount','paid_amount', 'note'];
 
     /**
      * 

@@ -36,7 +36,7 @@ class SellController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(Request $request)
     {
@@ -82,10 +82,11 @@ class SellController extends Controller
             // return response()->json($medicineSaleDetails);
 
             TransactionHistory::create([
-                'type' => Customer::class,
+                'type' => MedicineSaleDetail::class,
                 'transaction_type_id' => $medicineSale->id,
                 'net_amount' => $total,
                 'paid_amount' => $request->total_paid,
+                'note' => 'Selling medicine'
             ]);
 
             $prev_due = null;
@@ -107,9 +108,6 @@ class SellController extends Controller
         }else{
             return response()->json(['invoice' => MedicineSale::with('saleDetails.medicine')->find($data['history'])]);
         }
-        // $request->validate([
-            
-        // ]);
     }
 
     /**
