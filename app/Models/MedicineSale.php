@@ -10,7 +10,7 @@ class MedicineSale extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['user_id','customer_id','total','total_paid'];
+    protected $fillable = ['user_id','customer_id','total','total_paid','discount'];
 
     /**
      * 
@@ -29,6 +29,18 @@ class MedicineSale extends Model
      * @return \Illuminate\Database\Eloquent\Casts\Attribute
      */
     protected function totalPaid(): Attribute
+    {
+        return Attribute::make(
+            get: fn ($value) => $value / 100,
+            set: fn ($value) => $value * 100,
+        );
+    }
+
+    /**
+     * 
+     * @return \Illuminate\Database\Eloquent\Casts\Attribute
+     */
+    protected function discount(): Attribute
     {
         return Attribute::make(
             get: fn ($value) => $value / 100,

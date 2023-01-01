@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Exception;
 use App\Models\Customer;
 use App\Models\Medicine;
 use App\Models\MedicineSale;
@@ -9,6 +10,7 @@ use Illuminate\Http\Request;
 use App\Models\MedicineSaleDetail;
 use App\Models\TransactionHistory;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\ValidationException;
 
 class SellController extends Controller
 {
@@ -51,12 +53,22 @@ class SellController extends Controller
                 $customer_id = $customer->id;
             }
 
+            // $sold_medicines_qry = Medicine::whereIn('id', $request->medicine_id);
             $sold_medicines = Medicine::whereIn('id', $request->medicine_id)->get();
 
             $total = 0;
-            foreach($sold_medicines as $medicine){
-                $total += $request->quantity[array_search($medicine->id, $request->medicine_id)] * $medicine->getRawOriginal('selling_price');
+            foreach($sold_medicines as $idx => $medicine){
+                $quantity = $request->quantity[array_search($medicine->id, $request->medicine_id)];
+                $medicine->current_stock -= $quantity;
+                if($medicine->current_stock <= 0){
+                    throw ValidationException::withMessages(['medicine_id[]' => $medicine->name . " " . $medicine->measurement . $medicine->unit .  ' stock is not enough!']);
+                }
+                $total += $quantity * $medicine->getRawOriginal('selling_price');
+                $medicine->save();
             }
+
+            // $sold_medicines->toQuery()->save();
+
             $total /= 100;
 
             $medicineSale = MedicineSale::create([
@@ -64,6 +76,7 @@ class SellController extends Controller
                 'customer_id' => $customer_id,
                 'total' => $total,
                 'total_paid' => $request->total_paid,
+                'discount' => $request->discount,
             ]);
 
             $medicineSaleDetails = [];
