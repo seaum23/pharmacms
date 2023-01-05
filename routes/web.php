@@ -61,12 +61,14 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::prefix('customer')->group(function (){
         Route::get('/', [CustomerController::class, 'index']);
         Route::get('/{customer}', [CustomerController::class, 'show']);
+        Route::get('/phone/{phone}', [CustomerController::class, 'showPhone']);
         Route::post('/', [CustomerController::class, 'store']);
     });
 
     Route::prefix('supplier')->group(function (){
         Route::get('/', [SupplierController::class, 'index']);
         Route::get('/{supplier}', [SupplierController::class, 'show']);
+        Route::get('/phone/{phone}', [SupplierController::class, 'showPhone']);
         Route::post('/', [SupplierController::class, 'store']);
     });
 
@@ -75,6 +77,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::get('/', [MedicineController::class, 'index']);
         Route::post('/', [MedicineController::class, 'store']);
         Route::get('/{medicine}', [MedicineController::class, 'show']);
+        Route::patch('/{medicine}', [MedicineController::class, 'update']);
         Route::get('/search/{name}', [MedicineSearchController::class, 'show']);
     });
 
@@ -89,6 +92,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
     Route::post('due-adjust/customer/{customer}', [DueAdjustController::class, 'customerDueAdjust']);
     Route::post('due-adjust/supplier/{supplier}', [DueAdjustController::class, 'supplierDueAdjust']);
+
 
 
 });

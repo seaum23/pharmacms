@@ -12,7 +12,7 @@ class CustomerController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
     public function index()
     {
@@ -33,7 +33,7 @@ class CustomerController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \App\Http\Resources\CustomerResource|\Illuminate\Http\Response
      */
     public function store(Request $request)
     {
@@ -61,13 +61,24 @@ class CustomerController extends Controller
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \App\Http\Resources\CustomerResource
      */
     public function show($customer)
     {
         return new CustomerResource(Customer::findOrFail($customer));
         // return new CustomerResource(Customer::with('purchaseHistories.medicines')->findOrFail($customer));
     }
+
+    /**
+     * Display the specified resource by phone.
+     *
+     * @param  int  $id
+     * @return \App\Http\Resources\CustomerResource
+     */
+    public function showPhone($phone)
+    {
+        return new CustomerResource(Customer::where("phone", $phone)->firstOrFail());
+    }    
 
     /**
      * Show the form for editing the specified resource.

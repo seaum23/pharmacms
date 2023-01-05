@@ -63,11 +63,22 @@ class SupplierController extends Controller
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \App\Http\Resources\SupplierResource
      */
     public function show($supplier)
     {
         return new SupplierResource(Supplier::findOrFail($supplier));
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \App\Http\Resources\SupplierResource
+     */
+    public function showPhone($phone)
+    {
+        return new SupplierResource(Supplier::where("phone", $phone)->firstOrFail());
     }
 
     /**

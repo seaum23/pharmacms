@@ -11,7 +11,7 @@ class MedicineController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
     public function index()
     {
@@ -32,7 +32,7 @@ class MedicineController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \App\Http\Resources\MedicineResource
      */
     public function store(Request $request)
     {
@@ -57,7 +57,7 @@ class MedicineController extends Controller
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \App\Http\Resources\MedicineResource
      */
     public function show(Medicine $medicine)
     {
@@ -80,11 +80,28 @@ class MedicineController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Response|\App\Http\Resources\MedicineResource
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Medicine $medicine)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'measurement' => 'required',
+            'unit' => 'required',
+            'selling_price' => 'required',
+        ]);
+
+        $medicine->name = $request->name;
+        $medicine->measurement = $request->measurement;
+        $medicine->unit = $request->unit;
+        $medicine->selling_price = $request->selling_price;
+
+        if($medicine->isDirty()){
+            $medicine->save();
+            return new MedicineResource($medicine);
+        }
+
+        return response(204);
     }
 
     /**
