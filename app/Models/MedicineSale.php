@@ -52,4 +52,14 @@ class MedicineSale extends Model
     {
         return $this->hasMany(MedicineSaleDetail::class);
     }
+
+    public function seller()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function customer()
+    {
+        return $this->belongsTo(Customer::class);
+    }
 }

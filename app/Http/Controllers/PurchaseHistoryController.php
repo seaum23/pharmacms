@@ -15,8 +15,7 @@ class PurchaseHistoryController extends Controller
      */
     public function index()
     {
-        return SupplierPurchaseHistoryResource::collection(SupplierPurchaseHistory::with('supplier', 'medicines')->where('cleared', 0)->get());
-        
+        return SupplierPurchaseHistoryResource::collection(SupplierPurchaseHistory::with('supplier', 'medicines')->where('cleared', 0)->get());        
     }
 
     /**

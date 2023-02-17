@@ -48,6 +48,7 @@ class SellController extends Controller
             if ($request->customer_phone) {
                 $customer = Customer::firstOrCreate(
                     ['phone' => $request->customer_phone],
+                    ['name' => $request->customer_name ?? NULL],
                     ['opening_balance' => 0, 'current_balance' => 0]
                 );
                 $customer_id = $customer->id;

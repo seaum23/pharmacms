@@ -7,6 +7,7 @@ use App\Http\Controllers\SellController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AddStockController;
 use App\Http\Controllers\AuthUserController;
+use App\Http\Controllers\CostController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\MedicineController;
 use App\Http\Controllers\PasswordController;
@@ -15,6 +16,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DueAdjustController;
 use App\Http\Controllers\MedicineSearchController;
 use App\Http\Controllers\PurchaseHistoryController;
+use App\Http\Controllers\TodaysSaleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -87,12 +89,14 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::patch('purchase-history/{purchase_history}', [AddStockController::class, 'update']);
 
     Route::post('sell', [SellController::class, 'store']);
+    Route::get('cost', [CostController::class, 'show']);
     // Route::get('profit', [ProfitController::class, 'index']);
     Route::get('dashboard', [DashboardController::class, 'index']);
 
     Route::post('due-adjust/customer/{customer}', [DueAdjustController::class, 'customerDueAdjust']);
     Route::post('due-adjust/supplier/{supplier}', [DueAdjustController::class, 'supplierDueAdjust']);
 
-
+    Route::get('todays-purchase-list', [TodaysSaleController::class, 'index']);
+    Route::get('any-purchase-list', [TodaysSaleController::class, 'show']);
 
 });
