@@ -15,6 +15,7 @@ use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DueAdjustController;
 use App\Http\Controllers\MedicineSearchController;
+use App\Http\Controllers\MemoController;
 use App\Http\Controllers\PurchaseHistoryController;
 use App\Http\Controllers\TodaysSaleController;
 
@@ -81,6 +82,13 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::get('/{medicine}', [MedicineController::class, 'show']);
         Route::patch('/{medicine}', [MedicineController::class, 'update']);
         Route::get('/search/{name}', [MedicineSearchController::class, 'show']);
+    });
+
+    Route::prefix('memo')->group(function (){
+        Route::get('/', [MemoController::class, 'index']);
+        Route::post('/', [MemoController::class, 'store']);
+        Route::delete('/{memo}', [MemoController::class, 'destroy']);
+        Route::patch('/{memo}', [MemoController::class, 'update']);
     });
 
     Route::post('add-stock', [AddStockController::class, 'store']);
