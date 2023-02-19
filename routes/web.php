@@ -14,8 +14,10 @@ use App\Http\Controllers\PasswordController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DueAdjustController;
+use App\Http\Controllers\ExpenseController;
 use App\Http\Controllers\MedicineSearchController;
 use App\Http\Controllers\PurchaseHistoryController;
+use App\Http\Controllers\SaleReportController;
 use App\Http\Controllers\TodaysSaleController;
 
 /*
@@ -63,6 +65,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::prefix('customer')->group(function (){
         Route::get('/', [CustomerController::class, 'index']);
         Route::get('/{customer}', [CustomerController::class, 'show']);
+        Route::get('/history/{phone}', [CustomerController::class, 'showHistory']);
         Route::get('/phone/{phone}', [CustomerController::class, 'showPhone']);
         Route::post('/', [CustomerController::class, 'store']);
     });
@@ -74,6 +77,12 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::post('/', [SupplierController::class, 'store']);
     });
 
+    Route::prefix('expense')->group(function (){
+        Route::get('/', [ExpenseController::class, 'index']);
+        Route::get('/{supplier}', [ExpenseController::class, 'show']);
+        Route::get('/phone/{phone}', [ExpenseController::class, 'showPhone']);
+        Route::post('/', [ExpenseController::class, 'store']);
+    });
 
     Route::prefix('medicine')->group(function (){
         Route::get('/', [MedicineController::class, 'index']);
@@ -97,6 +106,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('due-adjust/supplier/{supplier}', [DueAdjustController::class, 'supplierDueAdjust']);
 
     Route::get('todays-purchase-list', [TodaysSaleController::class, 'index']);
+    Route::get('sale-list', [SaleReportController::class, 'index']);
     Route::get('any-purchase-list', [TodaysSaleController::class, 'show']);
 
 });

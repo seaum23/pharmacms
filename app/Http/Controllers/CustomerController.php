@@ -70,6 +70,18 @@ class CustomerController extends Controller
     }
 
     /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \App\Http\Resources\CustomerResource
+     */
+    public function showHistory($phone)
+    {
+        return new CustomerResource(Customer::with('purchaseHistories.saleDetails.medicine','purchaseHistories.seller')->where("phone", $phone)->firstOrFail());
+        // return new CustomerResource(Customer::with('purchaseHistories.medicines')->findOrFail($customer));
+    }
+
+    /**
      * Display the specified resource by phone.
      *
      * @param  int  $id

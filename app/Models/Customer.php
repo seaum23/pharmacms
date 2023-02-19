@@ -38,6 +38,6 @@ class Customer extends Model
 
     public function purchaseHistories()
     {
-        return $this->hasMany(CustomerPurchaseHistory::class);
+        return $this->hasMany(MedicineSale::class);
     }    
 }
