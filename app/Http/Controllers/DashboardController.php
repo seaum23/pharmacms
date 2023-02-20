@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Expense;
 use App\Models\Supplier;
 use App\Models\MedicineSale;
 use Illuminate\Http\Request;
@@ -28,6 +29,8 @@ class DashboardController extends Controller
         $months_sell = MedicineSale::select(DB::raw("SUM(`total_paid`) as total_paid, SUM(`total`) as total"))->whereMonth('created_at', now()->format("m"))->first();
         $todays_sell = MedicineSale::select(DB::raw("SUM(`total_paid`) as total_paid, SUM(`total`) as total"))->whereDate('created_at', now()->format("Y-m-d"))->first();
         $total_due = Supplier::sum('current_balance') / 100;
+        $todays_cost = Expense::select(DB::raw("SUM(`amount`) / 100 as total_amount"))->whereDate('created_at', now())->first();
+        $months_cost = Expense::select(DB::raw("SUM(`amount`) / 100 as total_amount"))->whereYear('created_at', now()->format('Y'))->whereMonth('created_at', now()->format('m'))->first();
 
         $daily_profit = DB::select('SELECT
         medicine_sale_details.*,
@@ -70,8 +73,10 @@ class DashboardController extends Controller
         $data['total_due'] = $total_due;
         $data['months_sale'] = $months_sell->total;
         $data['todays_sale'] = $todays_sell->total;
-        $data['todays_profit'] = $daily_total_profit / 100;
-        $data['months_profit'] = $monthly_total_profit / 100;
+        $data['todays_profit'] = ($daily_total_profit - $todays_cost->total_amount) / 100;
+        $data['months_profit'] = ($monthly_total_profit - $months_cost->total_amount) / 100;
+        $data['todays_cost'] = $todays_cost->total_amount / 100;
+        $data['months_cost'] = $months_cost->total_amount / 100;
         return response($data);
     }
 
