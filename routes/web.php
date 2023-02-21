@@ -107,7 +107,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
     Route::post('sell', [SellController::class, 'store']);
     Route::get('cost', [CostController::class, 'show']);
-    <!-- // Route::get('profit', [ProfitController::class, 'index']); -->
+    // <!-- // Route::get('profit', [ProfitController::class, 'index']); -->
     Route::get('dashboard', [DashboardController::class, 'index']);
 
     Route::get('all-due', [DueAdjustController::class, 'getAllDue']);
