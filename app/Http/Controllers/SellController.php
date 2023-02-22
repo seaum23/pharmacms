@@ -100,6 +100,7 @@ class SellController extends Controller
                 'transaction_type_id' => $medicineSale->id,
                 'net_amount' => $total,
                 'paid_amount' => $request->total_paid,
+                'discount' => $request->discount,
                 'note' => 'Selling medicine'
             ]);
 
@@ -108,7 +109,7 @@ class SellController extends Controller
             if($request->customer_phone){
                 $returnData['prev_due'] = $customer->current_balance;
                 if($total != $request->total_paid){
-                    $updated_price = $total - $request->total_paid;
+                    $updated_price = ($total - $request->discount ?? 0) - $request->total_paid;
                     $customer->current_balance = $customer->current_balance + $updated_price;
                     $customer->save();
                 }
