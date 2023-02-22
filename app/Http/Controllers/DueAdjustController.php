@@ -11,6 +11,12 @@ use Illuminate\Http\Request;
 
 class DueAdjustController extends Controller
 {
+
+    public function getAllDue()
+    {
+        return CustomerResource::collection(Customer::where("current_balance", "!=", "0")->get());
+    }
+
     public function customerDueAdjust(Request $request, Customer $customer)
     {
         $request->validate([
