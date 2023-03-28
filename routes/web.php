@@ -32,15 +32,7 @@ use App\Http\Controllers\TodaysSaleController;
 |
 */
 
-Route::get('/dashboard', function () {
-    return view('welcome');
-})->middleware('auth:sanctum');
-
 Route::get('/login', function () {
-    // User::create([
-    //     'phone' => "0170000000",
-    //     'password' => bcrypt("12345")
-    // ]);
     return view('login');
 })->name('login');
 
@@ -60,8 +52,6 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
     Route::patch('password/{user}', [PasswordController::class, 'update']);
     Route::get('auth-user', [AuthUserController::class, 'index']);
-    // Route::patch('user', [PasswordController::class, 'update_self']);
-    // Route::patch('password', [PasswordController::class, 'update_self']);
 
     Route::prefix('customer')->group(function (){
         Route::get('/', [CustomerController::class, 'index']);
@@ -107,10 +97,10 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
     Route::post('sell', [SellController::class, 'store']);
     Route::get('cost', [CostController::class, 'show']);
-    // <!-- // Route::get('profit', [ProfitController::class, 'index']); -->
     Route::get('dashboard', [DashboardController::class, 'index']);
 
     Route::get('all-due', [DueAdjustController::class, 'getAllDue']);
+    
     Route::post('due-adjust/customer/{customer}', [DueAdjustController::class, 'customerDueAdjust']);
     Route::post('due-adjust/supplier/{supplier}', [DueAdjustController::class, 'supplierDueAdjust']);
 
