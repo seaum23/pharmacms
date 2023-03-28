@@ -14,9 +14,6 @@ class AuthController extends Controller
             // $request->session()->regenerate();
 
             $token = $request->user()->createToken('login-token');
-            // var_dump(new UserResource($request->user()));
-            // exit();
- 
             return ['user' => new UserResource($request->user()), 'token' => $token->plainTextToken];
         }
 

@@ -20,16 +20,6 @@ class CustomerController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -66,7 +56,6 @@ class CustomerController extends Controller
     public function show($customer)
     {
         return new CustomerResource(Customer::findOrFail($customer));
-        // return new CustomerResource(Customer::with('purchaseHistories.medicines')->findOrFail($customer));
     }
 
     /**
@@ -78,7 +67,6 @@ class CustomerController extends Controller
     public function showHistory($phone)
     {
         return new CustomerResource(Customer::with('purchaseHistories.saleDetails.medicine','purchaseHistories.seller')->where("phone", $phone)->firstOrFail());
-        // return new CustomerResource(Customer::with('purchaseHistories.medicines')->findOrFail($customer));
     }
 
     /**
@@ -90,39 +78,5 @@ class CustomerController extends Controller
     public function showPhone($phone)
     {
         return new CustomerResource(Customer::where("phone", $phone)->firstOrFail());
-    }    
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
     }
 }
